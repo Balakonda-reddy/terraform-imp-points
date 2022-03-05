@@ -1,0 +1,60 @@
+
+
+
+terraform
+-------------
+argument= whatever we will give within the blocks 
+
+output.tf = To print the created resource output data
+
+diff b/w argument and attribute
+-----------------------------
+inputs which are given in block ---argument --- inputs
+
+we will give which are to be printed as output-- attribute-- outputs
+
+variable.tf
+---------------
+we declare values which are to be going to insert in argument
+variables declaration
+
+tfvars (we will pass original values for variables here)
+--------
+it contains values of variables
+
+main.tf
+---------
+it contains cloud provider details and region details
+
+
+--> Terraform by default will take only terraform files
+
+--> if u want give values through tfvars file then u mention manually
+
+ ex:- terraform apply -var-file=dev.tfvars
+
+if u want to take automatically, then save filename with auto.tfvars 
+
+ ex:- auto.tfvars
+
+Datasource (to read and create)
+-----------
+
+it is used to take id of already created resource
+
+suppose:- if u create vpc before , now u want to create subnet
+  at that time u call vpc id to create subnet, so we use Datasource.
+
+module (total code contains resource.tf,main.tf,variable.tf,output.tf,tfvars)
+-----------
+ 
+it is used to reuse of the entire code, by changing the tfvars file values
+ 
+
+
+
+
+
+
+
+
