@@ -1,5 +1,13 @@
 
+ --> terraform init -- It will intialize the all needed prerequists for aws cloud provider
+ --> terraform fmt -- it will arrange the all code in correct format or correct syntax
+ --> terraform validate -- it will validates the configuration files in a directory
+ --> terraform plan -- it shows the execution plan of the infrastructure, it can also preview all the changes
+ --> terraform apply -- it will create the actual infrastructure
 
+--> terraform init -- it will generate .terraform folder and .terraform.lock.hcl file also
+
+--> terraform apply generates terraform.tfstate file and terraform.tfstate.backup
 
 terraform
 -------------
@@ -33,6 +41,7 @@ it contains cloud provider details and region details
 
  ex:- terraform apply -var-file=dev.tfvars
 
+
 if u want to take automatically, then save filename with auto.tfvars 
 
  ex:- auto.tfvars
@@ -49,6 +58,8 @@ module (total code contains resource.tf,main.tf,variable.tf,output.tf,tfvars)
 -----------
  
 it is used to reuse of the entire code, by changing the tfvars file values
+
+
  
 
 
