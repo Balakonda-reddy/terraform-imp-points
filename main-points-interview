@@ -56,8 +56,17 @@ suppose:- if u create vpc before , now u want to create subnet
 
 module (total code contains resource.tf,main.tf,variable.tf,output.tf,tfvars)
 -----------
+--> terraform module is a set of configuration files in a single directory
+--> Even a simple configuration consisiting of a single directory with one or more .tf files is called module.
  
 it is used to reuse of the entire code, by changing the tfvars file values
+--> terraform module allows you to group resources together, and then we can reuse that group resources for many times.
+
+
+terraform tfstate file 
+-------------------------
+ “terraform.tfstate”. This state file contains information about the provisioned infrastructure which terraform manage. Whenever we change the configuration file,
+ it automatically determines which part of your configuration is already created and which needs to be changed with help of state file. 
 
 
  
