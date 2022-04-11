@@ -51,8 +51,8 @@ Datasource (to read and create)
 
 it is used to take id of already created resource
 
-suppose:- if u create vpc before , now u want to create subnet
-  at that time u call vpc id to create subnet, so we use Datasource.
+suppose:- if u create 10 ec2 , u want only ec2's with specific ami -- at that time filter with datasource
+  
 
 module (total code contains resource.tf,main.tf,variable.tf,output.tf,tfvars)
 -----------
@@ -69,11 +69,127 @@ terraform tfstate file
  it automatically determines which part of your configuration is already created and which needs to be changed with help of state file. 
 
 
- 
+Run terraform commands through Jenkins pipeline
+----------------------------------------------------------
+-- first install terraform on jenkins 
+-- change permissions 777 and add copy /usr/local/bin/
+-- test the terraform --------  terraform --version
+
+pipeline
+---------
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Git_checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/balu1391/terra-module.git'
+            }
+        }
+        stage('initialize') {
+            steps {
+		        sh 'terraform init -verify-plugins=false' 
+            }
+        }
+        stage('plan') {
+            steps {
+		        sh 'terraform plan'
+            }
+        }
+        //stage('apply') {
+        //    steps {
+		//        sh 'terraform apply -auto-approve'
+        //   }
+        //}
+        stage('destroy') {
+            steps {
+		        sh 'terraform destroy -auto-approve'
+            }
+        }   
+    }
+}
 
 
+terraform module concept
+--------------------------
+module.tf -- if u run --- resources will be created
 
+module "ec2_instance" {
+  source = "../terra-practice/"     
 
+  region = "ap-northeast-1"
+  ami    = "ami-04204a8960917fd92"
+  itype  = "t3.micro"
+  zone   = "ap-northeast-1a"
+  name   = "dev"
+}
+
+-- In source give the Actual code location
+
+-- The tfvars file details will be changed in module concept
+
+-- region = "ap-northeast-1"
+  ami    = "ami-04204a8960917fd92"
+  itype  = "t3.micro"
+  zone   = "ap-northeast-1a"
+  name   = "dev"
+  
+  these details we will pass on module.tf file or we can pass in separate file
+  
+  
+  
+  terraform Datasource concept
+  ----------------------------
+  
+  -- By using Datasource we can get the data of resources which are already created before 
+  
+  -- we can get the already created resource data
+   
+  ex:- Not exact 
+  
+  data "aws_instance" "foo" {
+  instance_id = "i-instanceid"
+
+  filter {
+    name   = "image-id"
+    values = ["ami-xxxxxxxx"]
+  }
+
+  filter {
+    name   = "tag:Name"
+    values = ["instance-name-tag"]
+  }
+}
+  
+---- by using instance id, tag , like that we can filter the data 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 
 
